@@ -1,0 +1,33 @@
+.answers {
+  flex: auto;
+  max-width: 50%;
+  margin-right: 20px;
+
+  &__list {
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: royalblue;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    padding: 12px 10px 12px 10px;
+    border-bottom: 1px solid #000;
+    cursor: pointer;
+  }
+
+  &__item:last-child {
+    border-bottom: none;
+  }
+
+  &__dot {
+    display: inline-flex;
+    width: 10px;
+    height: 10px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background-color: gray;
+  }
+}

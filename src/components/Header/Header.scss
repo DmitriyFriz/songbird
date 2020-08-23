@@ -1,0 +1,28 @@
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 30px;
+
+  &__item{
+    flex: auto;
+    background-color: #fff1c2;
+    list-style-type: none;
+    text-align: center;
+    padding: 5px 10px;
+
+    &_active {
+      background-color: yellowgreen;
+    }
+  }
+}
