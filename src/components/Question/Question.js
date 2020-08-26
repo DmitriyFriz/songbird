@@ -9,19 +9,22 @@ import Player from '../Player/Player';
 //image
 import unknownImage from '../../image/unknown.jpg';
 
-class Question extends React.Component {
+const Question = ({ randomItem, guessed }) => {
 
-  render() {
-    return (
-      <div className="question">
-        <img className="question__img" src={unknownImage} alt="unknown" />
-        <div className="question__info">
-          <p className="question__name">******</p>
-          <div><Player /></div>
-        </div>
+  const {name, image, audio} = randomItem;
+
+  const currentName = guessed ? name : '******';
+  const currentImage = guessed ? image : unknownImage;
+
+  return (
+    <div className="question">
+      <img className="question__img" src={currentImage} alt="unknown" />
+      <div className="question__info">
+        <p className="question__name">{currentName}</p>
+        <div><Player src={audio}/></div>
       </div>
-    )
-  }
+    </div>
+  )
 
 }
 
