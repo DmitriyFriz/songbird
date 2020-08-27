@@ -3,11 +3,16 @@ import React from 'react';
 // style
 import './NextButton.scss';
 
-const NextButton = () => {
+const NextButton = ({ guessed }) => {
+
+  let clazz = 'next-button';
+  if (guessed) {
+    clazz += ' active'
+  }
 
   return (
     <button
-      className="next-button active"
+      className={clazz}
       type="button"
       onClick={() => console.log('click')} >
       Next Level

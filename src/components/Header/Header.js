@@ -3,7 +3,7 @@ import React from 'react';
 //style
 import './Header.scss'
 
-const Header = () => {
+const Header = ({ groupNumber }) => {
 
   const headerData = [
     'Разминка',
@@ -15,8 +15,14 @@ const Header = () => {
   ]
 
   const headerItems = headerData.map((item, index) => {
+
+    let clazz = 'navigation__item';
+    if (groupNumber === index) {
+      clazz += ' active'
+    }
+
     return (
-      <li className="navigation__item" key={index}>
+      <li className={clazz} key={index}>
         {item}
       </li>
     )

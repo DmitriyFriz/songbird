@@ -4,8 +4,10 @@
   border: 1px solid #000;
   border-radius: 5px;
   background-color: gray;
+  cursor: pointer;
+
+  &.active {
+    background-color: green;
+  }
 }
 
-.next-button.active {
-  background-color: green;
-}
