@@ -5,13 +5,20 @@ import './AnswerItems.scss';
 
 const AnswerItems = ({group, onSelectItem}) => {
 
-  const answers = group.map(({name, id}) => {
+  const answers = group.map(({name, id, answer}) => {
+    let dotClazz = 'answers__dot';
+
+    if ( answer !== null) {
+      const addedClazz = answer ? ' correct' : ' incorrect';
+      dotClazz += addedClazz;
+    }
+
     return (
       <li
         className="answers__item"
         key={id}
         onClick={() => onSelectItem(id)}>
-        <span className="answers__dot"></span>
+        <span className={dotClazz}></span>
         {name}
       </li>
     )

@@ -37,11 +37,11 @@ class App extends React.Component {
   }
 
   onSelectItem = (id) => {
-    const item = getItemById(this.groupNumber, id)
+    const { group, guessed } = this.state;
+
+    const item = getItemById(group, id);
 
     this.setState({selectedItem: item});
-
-    const { guessed } = this.state;
 
     if (!guessed) {
       this.handleAnswer(item);
@@ -61,15 +61,33 @@ class App extends React.Component {
   handleCorrect = (item) => {
     this.setState({guessed: true});
     this.playAudio(correctAudio);
-    // setItemAnswer
+    this.setItemAnswer(item, true);
   }
 
   handleIncorrect = (item) => {
     this.playAudio(incorrectAudio);
+    this.setItemAnswer(item, false);
   }
 
-  setItemAnswer = () => {
+  setItemAnswer = (item, boolean) => {
+    if (item.answer !== null) {
+      return;
+    }
 
+    this.setState(({group}) => {
+      const idx = group.findIndex((el) => el === item );
+      const newItem = {...item, answer: boolean}
+
+      const newGroup = [
+        ...group.slice(0, idx),
+        newItem,
+        ...group.slice(idx + 1)
+      ]
+
+      return {
+        group: newGroup,
+      }
+    })
   }
 
   playAudio(src) {

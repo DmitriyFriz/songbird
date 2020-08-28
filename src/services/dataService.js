@@ -1,19 +1,18 @@
 import data from '../data/data';
 
-function getGroup(group) {
-  return data[group].map(item => {
-    item.answer = null;
-    return item
-  });
+data.forEach(itemArr => itemArr.forEach(item => item.answer = null));
+
+function getGroup(groupNumber) {
+  return data[groupNumber];
 }
 
 function getItemById(group, id) {
-  return data[group].find(item => item.id === id);
+  return group.find(item => item.id === id);
 }
 
-function getRandomItem(group) {
-  const randomIndex = Math.floor(Math.random()*data[group].length);
-  return data[group][randomIndex];
+function getRandomItem(groupNumber) {
+  const randomIndex = Math.floor(Math.random()*data[groupNumber].length);
+  return data[groupNumber][randomIndex];
 }
 
 function getMaxGroup() {
