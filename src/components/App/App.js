@@ -20,11 +20,10 @@ import incorrectAudio from '../../assets/audio/incorrect.mp3';
 class App extends React.Component {
 
   maxGroup = getMaxGroup();
-  groupNumber = 0;
 
   state = {
-    ...this.setRoundParameters(this.groupNumber),
-    score: 0
+    ...this.setRoundParameters(0),
+    score: 0,
   }
 
   setRoundParameters(groupNumber) {
@@ -33,6 +32,7 @@ class App extends React.Component {
       questionItem: getRandomItem(groupNumber),
       selectedItem: null,
       guessed: false,
+      groupNumber
     }
   }
 
@@ -62,6 +62,7 @@ class App extends React.Component {
     this.setState({guessed: true});
     this.playAudio(correctAudio);
     this.setItemAnswer(item, true);
+    this.changeScore();
   }
 
   handleIncorrect = (item) => {
@@ -90,6 +91,15 @@ class App extends React.Component {
     })
   }
 
+  changeScore = () => {
+    this.setState(({score, group}) => {
+      const roundScore = group.filter(({ answer }) => answer === null).length;
+      return {
+        score: score + roundScore
+      }
+    })
+  }
+
   playAudio(src) {
     const audio = new Audio();
     audio.preload = 'auto';
@@ -97,13 +107,26 @@ class App extends React.Component {
     audio.play();
   }
 
+  onClickNext = () => {
+    const { guessed, groupNumber } = this.state;
+    if ( !guessed ) return;
+
+    const nextGroupNumber = groupNumber + 1;
+    if (nextGroupNumber >= this.maxGroup) {
+      console.log('finish');
+      return;
+    }
+
+    this.setState({...this.setRoundParameters(nextGroupNumber)});
+  }
+
   render() {
-    const { group, questionItem, selectedItem, guessed, score } = this.state;
+    const { group, questionItem, selectedItem, guessed, score, groupNumber } = this.state;
 
     return (
       <div className="app-container">
         < Header
-          groupNumber={this.groupNumber}
+          groupNumber={groupNumber}
           score={score} />
         <Question
           questionItem={questionItem}
@@ -114,7 +137,9 @@ class App extends React.Component {
             onSelectItem={this.onSelectItem} />
           <Description selectedItem={selectedItem} />
         </div>
-        <NextButton guessed={guessed}/>
+        <NextButton
+          guessed={guessed}
+          onClickNext={this.onClickNext} />
       </div>
     )
   }

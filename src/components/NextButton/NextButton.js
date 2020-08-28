@@ -3,7 +3,7 @@ import React from 'react';
 // style
 import './NextButton.scss';
 
-const NextButton = ({ guessed }) => {
+const NextButton = ({ guessed, onClickNext }) => {
 
   let clazz = 'next-button';
   if (guessed) {
@@ -14,7 +14,7 @@ const NextButton = ({ guessed }) => {
     <button
       className={clazz}
       type="button"
-      onClick={() => console.log('click')} >
+      onClick={onClickNext} >
       Next Level
     </button>
   )
