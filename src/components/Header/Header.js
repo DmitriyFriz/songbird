@@ -3,7 +3,7 @@ import React from 'react';
 //style
 import './Header.scss'
 
-const Header = ({ groupNumber }) => {
+const Header = ({ groupNumber, score }) => {
 
   const headerData = [
     'Разминка',
@@ -32,7 +32,7 @@ const Header = ({ groupNumber }) => {
     <header className="">
       <div className="top-header">
         <h1>SongBird</h1>
-        <p>Score: 0</p>
+        <p>Score: {score}</p>
       </div>
       <ul className="navigation">
         {headerItems}

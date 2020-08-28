@@ -23,11 +23,11 @@ class App extends React.Component {
   groupNumber = 0;
 
   state = {
-    ...this.setParameters(this.groupNumber),
+    ...this.setRoundParameters(this.groupNumber),
     score: 0
   }
 
-  setParameters(groupNumber) {
+  setRoundParameters(groupNumber) {
     return {
       group: getGroup(groupNumber),
       questionItem: getRandomItem(groupNumber),
@@ -37,32 +37,39 @@ class App extends React.Component {
   }
 
   onSelectItem = (id) => {
-    this.setState({selectedItem: getItemById(this.groupNumber, id)});
+    const item = getItemById(this.groupNumber, id)
+
+    this.setState({selectedItem: item});
 
     const { guessed } = this.state;
 
     if (!guessed) {
-      this.handleAnswer(id);
+      this.handleAnswer(item);
     }
   }
 
-  handleAnswer = (idAnswer) => {
-    const { id } = this.state.questionItem;
+  handleAnswer = (item) => {
+    const { questionItem } = this.state;
 
-    if (id === idAnswer) {
-      this.handleCorrect();
+    if ( questionItem === item) {
+      this.handleCorrect(item);
     } else {
-      this.handleIncorrect();
+      this.handleIncorrect(item);
     }
   }
 
-  handleCorrect = () => {
+  handleCorrect = (item) => {
     this.setState({guessed: true});
     this.playAudio(correctAudio);
+    // setItemAnswer
   }
 
-  handleIncorrect = () => {
+  handleIncorrect = (item) => {
     this.playAudio(incorrectAudio);
+  }
+
+  setItemAnswer = () => {
+
   }
 
   playAudio(src) {
@@ -73,11 +80,13 @@ class App extends React.Component {
   }
 
   render() {
-    const { group, questionItem, selectedItem, guessed } = this.state;
+    const { group, questionItem, selectedItem, guessed, score } = this.state;
 
     return (
       <div className="app-container">
-        < Header groupNumber={this.groupNumber}/>
+        < Header
+          groupNumber={this.groupNumber}
+          score={score} />
         <Question
           questionItem={questionItem}
           guessed={guessed} />

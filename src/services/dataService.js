@@ -1,7 +1,10 @@
 import data from '../data/data';
 
 function getGroup(group) {
-  return data[group];
+  return data[group].map(item => {
+    item.answer = null;
+    return item
+  });
 }
 
 function getItemById(group, id) {

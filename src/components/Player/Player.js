@@ -7,24 +7,29 @@ import 'react-h5-audio-player/src/styles.scss';
 // style
 import './Player.scss';
 
-const Player = ({ src, guessed = false }) => {
+class Player extends React.Component {
 
-  const player = React.createRef();
-  console.log(player)
+  player = React.createRef();
 
-  if (guessed) {
-    // const audio = player.current.audio.current;
-    // audio.pause();
+  componentDidUpdate(prevProps) {
+    if ( this.props.guessed !== prevProps.guessed && this.props.guessed) {
+      const audio = this.player.current.audio.current;
+      audio.pause();
+      audio.currentTime = 0;
+    }
   }
 
+  render () {
+    const { src } = this.props;
 
-  return (
-    <AudioPlayer
-      ref={player}
-      src={src}
-      autoPlayAfterSrcChange={false}
-    />
-  )
+    return (
+      <AudioPlayer
+        ref={this.player}
+        src={src}
+        autoPlayAfterSrcChange={false}
+      />
+    )
+  }
 }
 
 export default Player;
