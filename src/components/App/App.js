@@ -5,7 +5,8 @@ import Header from '../Header/Header';
 import Question from '../Question/Question';
 import AnswerItems from '../AnswerItems/AnswerItems';
 import Description from '../Description/Description';
-import NextButton from '../NextButton/NextButton'
+import NextButton from '../NextButton/NextButton';
+import Finish from '../Finish/Finish';
 
 // services
 import {getGroup, getItemById, getRandomItem, getMaxGroup} from '../../services/dataService'
@@ -24,6 +25,7 @@ class App extends React.Component {
   state = {
     ...this.setRoundParameters(0),
     score: 0,
+    finish: false
   }
 
   setRoundParameters(groupNumber) {
@@ -113,36 +115,69 @@ class App extends React.Component {
 
     const nextGroupNumber = groupNumber + 1;
     if (nextGroupNumber >= this.maxGroup) {
-      console.log('finish');
+      this.finishGame();
       return;
     }
 
     this.setState({...this.setRoundParameters(nextGroupNumber)});
   }
 
+  finishGame = () => {
+    this.setState({
+      ...this.setRoundParameters(0),
+      finish: true,
+    });
+  }
+
+  onRepeat = () => {
+    this.setState({
+      score: 0,
+      finish: false
+    })
+  }
+
   render() {
-    const { group, questionItem, selectedItem, guessed, score, groupNumber } = this.state;
+    const { score, groupNumber, finish } = this.state;
+
+    const main = finish ?
+      <Finish
+        score={score}
+        onRepeat={this.onRepeat} /> :
+      <Game
+        data={this.state}
+        onSelectItem={this.onSelectItem}
+        onClickNext={this.onClickNext} />
 
     return (
       <div className="app-container">
         < Header
           groupNumber={groupNumber}
           score={score} />
-        <Question
-          questionItem={questionItem}
-          guessed={guessed} />
-        <div className="items-block">
-          <AnswerItems
-            group={group}
-            onSelectItem={this.onSelectItem} />
-          <Description selectedItem={selectedItem} />
-        </div>
-        <NextButton
-          guessed={guessed}
-          onClickNext={this.onClickNext} />
+        {main}
       </div>
     )
   }
+}
+
+const Game = ({data, onSelectItem, onClickNext}) => {
+  const { group, questionItem, selectedItem, guessed } = data;
+
+  return (
+    <main>
+      <Question
+        questionItem={questionItem}
+        guessed={guessed} />
+      <div className="items-block">
+        <AnswerItems
+          group={group}
+          onSelectItem={onSelectItem} />
+        <Description selectedItem={selectedItem} />
+      </div>
+      <NextButton
+        guessed={guessed}
+        onClickNext={onClickNext} />
+    </main>
+  )
 }
 
 export default App;

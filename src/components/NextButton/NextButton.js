@@ -15,7 +15,7 @@ const NextButton = ({ guessed, onClickNext }) => {
       className={clazz}
       type="button"
       onClick={onClickNext} >
-      Next Level
+      Далее
     </button>
   )
 }

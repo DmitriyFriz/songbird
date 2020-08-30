@@ -19,4 +19,8 @@ function getMaxGroup() {
   return data.length;
 }
 
-export {getGroup, getItemById, getRandomItem, getMaxGroup};
+function getMaxScore() {
+  return data.reduce((maxScore, item) => maxScore + item.length -1, 0);
+}
+
+export {getGroup, getItemById, getRandomItem, getMaxGroup, getMaxScore};
