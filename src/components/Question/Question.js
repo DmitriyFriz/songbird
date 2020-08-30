@@ -9,23 +9,36 @@ import Player from '../Player/Player';
 //image
 import unknownImage from '../../assets/image/unknown.jpg';
 
-const Question = ({ questionItem, guessed }) => {
+class Question extends React.Component {
 
-  const {name, image, audio} = questionItem;
+  componentDidMount() {
+    console.log(this.props.questionItem.name);
+  }
 
-  const currentName = guessed ? name : '******';
-  const currentImage = guessed ? image : unknownImage;
+  componentDidUpdate(prevProps) {
+    if( this.props.questionItem !== prevProps.questionItem ) {
+      console.log(this.props.questionItem.name);
+    }
+  }
 
-  return (
-    <div className="question">
-      <img className="question__img" src={currentImage} alt="unknown" />
-      <div className="question__info">
-        <p className="question__name">{currentName}</p>
-        <div><Player src={audio} guessed={guessed} /></div>
+
+  render () {
+    const { questionItem, guessed } = this.props;
+    const { name, image, audio } = questionItem;
+
+    const currentName = guessed ? name : '******';
+    const currentImage = guessed ? image : unknownImage;
+
+    return (
+      <div className="question">
+        <img className="question__img" src={currentImage} alt="unknown" />
+        <div className="question__info">
+          <p className="question__name">{currentName}</p>
+          <div><Player src={audio} guessed={guessed} /></div>
+        </div>
       </div>
-    </div>
-  )
-
+    )
+  }
 }
 
 export default Question;
