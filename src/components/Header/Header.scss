@@ -22,7 +22,7 @@
     padding: 5px 10px;
 
     &.active {
-      background-color: yellowgreen;
+      border-bottom: 2px dashed #2d303a;
     }
   }
 }
