@@ -27,6 +27,9 @@ class Player extends React.Component {
         ref={this.player}
         src={src}
         autoPlayAfterSrcChange={false}
+        showJumpControls={false}
+        customAdditionalControls={[]}
+        layout="horizontal-reverse"
       />
     )
   }
