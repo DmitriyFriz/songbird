@@ -6,6 +6,10 @@
   border-radius: 5px;
   text-align: center;
 
+  @media (max-width: 600px) {
+    padding: 20px;
+  }
+
   &__congratulation {
     font-size: 30px;
   }
@@ -16,6 +20,10 @@
     border-bottom: 2px dashed #2d303a;
   }
 
+  &__cup {
+    width: 180px;
+  }
+
   &__button {
     width: 100%;
     padding: 10px;
@@ -23,7 +31,7 @@
     border: 1px solid #2d303a;
     border-radius: 5px;
     outline: none;
-    background-color: #0ed329;
+    background-color: #4dab59;
     font-size: 16px;
     cursor: pointer;
 

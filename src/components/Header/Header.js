@@ -29,10 +29,10 @@ const Header = ({ groupNumber, score }) => {
   });
 
   return (
-    <header className="">
+    <header>
       <div className="top-header">
-        <h1>SongBird</h1>
-        <p>Score: {score}</p>
+        <h1 className="logo">SongBird</h1>
+        <p className="top-header__score">Score: {score}</p>
       </div>
       <ul className="navigation">
         {headerItems}
