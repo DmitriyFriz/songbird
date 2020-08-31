@@ -1,0 +1,20 @@
+.next-button {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #2d303a;
+  border-radius: 5px;
+  outline: none;
+  background-color: #ccc;
+  cursor: pointer;
+  font-size: 16px;
+
+  &.active {
+    background-color: #4dab59;
+
+    &:hover {
+      opacity: 0.7;
+      transition: 0.5s;
+    }
+  }
+}
+
